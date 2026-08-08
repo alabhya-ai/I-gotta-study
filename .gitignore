@@ -1,0 +1,44 @@
+# Environment
+.env
+.env.*
+*.env
+!.env.example
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+dist/
+build/
+
+# Flask / SQLAlchemy
+instance/
+*.db
+*.sqlite
+*.sqlite3
+
+# Node / React + Vite
+node_modules/
+frontend/dist/
+frontend/.vite/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Personal notes
+notes/
+
+# Claude Code
+.claude/
+CLAUDE.md
+
+# Logs
+*.log
