@@ -25,12 +25,15 @@ def _resolve_sqlite_url(url: str) -> str:
     return f"{prefix}{abs_path}"
 
 
-def create_app() -> Flask:
+def create_app(test_config: dict | None = None) -> Flask:
     app = Flask(__name__)
     app.config.from_object(Config)
-    app.config["SQLALCHEMY_DATABASE_URI"] = _resolve_sqlite_url(
-        app.config["SQLALCHEMY_DATABASE_URI"]
-    )
+    if test_config:
+        app.config.update(test_config)
+    else:
+        app.config["SQLALCHEMY_DATABASE_URI"] = _resolve_sqlite_url(
+            app.config["SQLALCHEMY_DATABASE_URI"]
+        )
 
     db.init_app(app)
     CORS(app)
