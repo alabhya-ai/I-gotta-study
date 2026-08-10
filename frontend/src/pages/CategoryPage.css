@@ -1,0 +1,43 @@
+.section {
+  margin-bottom: 52px;
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--color-border);
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Remove the native disclosure triangle in all browsers */
+.section-title::-webkit-details-marker {
+  display: none;
+}
+
+/* Chevron via pseudo-element — rotates 90° when open */
+.section-title::after {
+  content: '›';
+  font-size: 20px;
+  font-weight: 300;
+  display: inline-block;
+  transform: rotate(0deg);
+  transition: transform 0.15s ease;
+  line-height: 1;
+}
+
+.section[open] .section-title::after {
+  transform: rotate(90deg);
+}
+
+.section-body {
+  margin-top: 16px;
+}
