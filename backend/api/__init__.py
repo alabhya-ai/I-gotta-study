@@ -41,10 +41,12 @@ def create_app(test_config: dict | None = None) -> Flask:
     from api.routes.categories import bp as categories_bp
     from api.routes.videos import bp as videos_bp
     from api.routes.resources import bp as resources_bp
+    from api.routes.notes import bp as notes_bp
 
     app.register_blueprint(categories_bp)
     app.register_blueprint(videos_bp)
     app.register_blueprint(resources_bp)
+    app.register_blueprint(notes_bp)
 
     @app.cli.command("init-db")
     def init_db() -> None:

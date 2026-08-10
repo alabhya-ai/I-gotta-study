@@ -85,6 +85,9 @@ def delete_resource(resource_id: int):
     if resource is None:
         return jsonify({"error": "resource not found"}), 404
 
+    from api.models.note import Note
+    Note.query.filter_by(linked_resource_id=resource_id).update({"linked_resource_id": None})
+
     db.session.delete(resource)
     db.session.commit()
     return "", 204

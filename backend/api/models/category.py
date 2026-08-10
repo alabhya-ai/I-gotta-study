@@ -12,6 +12,7 @@ class Category(db.Model):
 
     videos = db.relationship("Video", backref="category", cascade="all, delete-orphan", lazy=True)
     resources = db.relationship("Resource", backref="category", cascade="all, delete-orphan", lazy=True)
+    notes = db.relationship("Note", backref="category", cascade="all, delete-orphan", lazy=True)
 
     def to_dict(self) -> dict:
         return {

@@ -124,6 +124,9 @@ def delete_video(video_id: int):
     if video is None:
         return jsonify({"error": "video not found"}), 404
 
+    from api.models.note import Note
+    Note.query.filter_by(linked_video_id=video_id).update({"linked_video_id": None})
+
     db.session.delete(video)
     db.session.commit()
     return "", 204
