@@ -1,26 +1,8 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { addVideo, deleteVideo } from '../api'
+import { deleteVideo } from '../api'
 import './WatchlistSection.css'
 
 export default function WatchlistSection({ categoryId, videos, onChange }) {
-  const [url, setUrl] = useState('')
-  const [title, setTitle] = useState('')
-  const [error, setError] = useState('')
-
-  async function handleAdd(e) {
-    e.preventDefault()
-    try {
-      const video = await addVideo(categoryId, url.trim(), title.trim() || undefined)
-      onChange(prev => [...prev, video])
-      setUrl('')
-      setTitle('')
-      setError('')
-    } catch (err) {
-      setError(err.message)
-    }
-  }
-
   async function handleDelete(videoId, e) {
     e.preventDefault()
     e.stopPropagation()
@@ -49,24 +31,6 @@ export default function WatchlistSection({ categoryId, videos, onChange }) {
           </Link>
         ))}
       </div>
-
-      <form onSubmit={handleAdd} className="add-form">
-        <input
-          value={url}
-          onChange={e => setUrl(e.target.value)}
-          placeholder="YouTube URL"
-          className="text-input"
-          required
-        />
-        <input
-          value={title}
-          onChange={e => setTitle(e.target.value)}
-          placeholder="Title (optional)"
-          className="text-input"
-        />
-        <button type="submit" className="btn-primary">Add Video</button>
-      </form>
-      {error && <p className="error-msg">{error}</p>}
     </div>
   )
 }
