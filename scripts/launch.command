@@ -1,7 +1,18 @@
 #!/usr/bin/env bash
 set -e
 
-PROJECT_DIR="/Users/alabhyapahari/Documents/projects/personalProjects/I-gotta-study"
+# Resolve this script's real location, following symlinks (Desktop → repo).
+target="$0"
+cd "$(dirname "$target")"
+target="$(basename "$target")"
+while [ -L "$target" ]; do
+    target="$(readlink "$target")"
+    cd "$(dirname "$target")"
+    target="$(basename "$target")"
+done
+SCRIPT_DIR="$(pwd -P)"
+PROJECT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+
 APP_URL="http://localhost"
 
 cd "$PROJECT_DIR"
