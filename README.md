@@ -16,12 +16,29 @@ A personal learning organizer for YouTube videos, reference links, and notes. Gr
 
 | Layer | Technology |
 |---|---|
-| Backend | Python 3, Flask 3, SQLAlchemy, SQLite (dev) / Postgres (prod) |
+| Backend | Python 3, Flask 3, SQLAlchemy, SQLite |
 | Frontend | React 19, Vite 8, React Router v7, plain CSS |
 | Tests | pytest |
 | YouTube | YouTube Data API v3 (playlist import) |
 
 ## Getting Started
+
+### With Docker
+
+```bash
+cp .env.example .env                          # set SECRET_KEY and YOUTUBE_API_KEY
+docker compose up --build
+docker compose exec backend flask init-db     # first run only — creates DB tables
+# App is at http://localhost
+```
+
+**One-click desktop launcher (macOS):** After the initial `.env` setup above, symlink the launcher to your Desktop:
+```bash
+ln -s "$PWD/scripts/launch.command" "$HOME/Desktop/I Gotta Study.command"
+```
+Double-click the file on your Desktop to start Docker Desktop (if needed), bring up the stack, and open the app in your browser.
+
+### Local dev (no Docker)
 
 ```bash
 git clone <repo-url> && cd I-gotta-study
@@ -34,7 +51,7 @@ cp .env.example .env           # set YOUTUBE_API_KEY if you want playlist import
 ```bash
 cd backend
 flask init-db
-flask run --debug              # http://localhost:5000
+python run.py                  # http://localhost:5000  (or: flask run --debug)
 ```
 
 **Frontend** (separate terminal):
@@ -63,7 +80,9 @@ cd backend && pytest tests/ -v
 
 ```
 I-gotta-study/
+├── docker-compose.yml
 ├── backend/
+│   ├── Dockerfile
 │   ├── api/
 │   │   ├── __init__.py       # app factory + db instance
 │   │   ├── models/           # Category, Video, Resource, Note
@@ -73,6 +92,8 @@ I-gotta-study/
 │   ├── config.py
 │   └── run.py
 └── frontend/
+    ├── Dockerfile
+    ├── nginx.conf
     └── src/
         ├── api.js            # all fetch() wrappers
         ├── components/
