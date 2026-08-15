@@ -25,10 +25,12 @@ A personal learning organizer for YouTube videos, reference links, and notes. Gr
 
 ### With Docker
 
+Requires [Docker Desktop](https://www.docker.com/products/docker-desktop/).
+
 ```bash
 cp .env.example .env                          # set SECRET_KEY and YOUTUBE_API_KEY
 docker compose up --build
-docker compose exec backend flask init-db     # first run only — creates DB tables
+docker compose exec backend flask init-db     # creates DB tables (idempotent)
 # App is at http://localhost
 ```
 
@@ -76,11 +78,15 @@ cd backend && pytest tests/ -v
 
 **Distraction-free video player** — videos are embedded via `youtube-nocookie.com`.
 
+**Shared SQLite file across Docker and local dev** — `docker-compose.yml` bind-mounts `./backend/instance` into the backend container, so `backend/instance/dev.db` is the single source of truth whether you launch the app via Docker (`http://localhost`) or the Flask/Vite dev servers (`http://localhost:5173`).
+
 ## Project Structure
 
 ```
 I-gotta-study/
 ├── docker-compose.yml
+├── scripts/
+│   └── launch.command        # macOS one-click launcher (symlink to Desktop)
 ├── backend/
 │   ├── Dockerfile
 │   ├── api/
