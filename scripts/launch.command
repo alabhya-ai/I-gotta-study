@@ -28,8 +28,8 @@ if ! docker info >/dev/null 2>&1; then
     until docker info >/dev/null 2>&1; do sleep 1; done
 fi
 
-echo "Bringing up the stack..."
-docker compose up -d
+echo "Building current code and bringing up the stack..."
+docker compose up -d --build
 
 echo "Ensuring database schema exists..."
 docker compose exec -T backend flask init-db

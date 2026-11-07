@@ -38,7 +38,7 @@ docker compose exec backend flask init-db     # creates DB tables (idempotent)
 ```bash
 ln -s "$PWD/scripts/launch.command" "$HOME/Desktop/I Gotta Study.command"
 ```
-Double-click the file on your Desktop to start Docker Desktop (if needed), bring up the stack, and open the app in your browser.
+Double-click the file on your Desktop to start Docker Desktop (if needed), build the current code, bring up the stack, and open the app in your browser. After saving code changes, run the launcher again to apply them. Docker reuses cached build steps when possible; the first build or dependency changes may take longer.
 
 ### Local dev (no Docker)
 
